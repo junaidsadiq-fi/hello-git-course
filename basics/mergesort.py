@@ -21,6 +21,7 @@ def mergesort(array, depth=0):
     return merged
 
 def merge(left, right):
+    debug_print(debug_msg="Merging...", left=left, right=right)
     merged = []
     while len(left) > 0 and len(right) > 0:
         if left[0] <= right[0]:
@@ -28,16 +29,15 @@ def merge(left, right):
         else:
             merged.append(right.pop(0))
 
-    if len(left) > 0:
-        merged += left
-    else:
-        merged += right
-
+    merged += left if len(left) > 0 else right
+    debug_print(debug_msg="merged:", merged=merged)
     return merged
 
 if __name__ == "__main__":
     input_str = input("Enter numbers, separated by ',': ")
     input_list = input_str.split(",")
+    print("input_list:", input_list)  # Print initial input list
+
     value_list = []
     for x in input_list:
         try:
@@ -46,6 +46,7 @@ if __name__ == "__main__":
             print("Invalid input.")
             quit(1)
 
-    print("input_list:", input_list)  # Print initial input list
+    print("value_list:", value_list)  # Print value list after conversion to integers
+
     sorted_list = mergesort(value_list)
     print(sorted_list)  # Print final sorted list
