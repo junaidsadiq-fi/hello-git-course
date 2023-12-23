@@ -1,2 +1,2 @@
-*.in
-*.out
+jpnbz.in
+mwavo.out
