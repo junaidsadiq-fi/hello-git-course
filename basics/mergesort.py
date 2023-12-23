@@ -10,18 +10,13 @@ def mergesort(array, depth=0):
         return array
 
     m = len(array) // 2
-    debug_print(debug_msg=indent + "array:", array=array[:m], m=m)  # Debug left split
-    left = mergesort(array[:m], depth + 1)
-    
-    debug_print(debug_msg=indent + "array:", array=array[m:], m=m)  # Debug right split
-    right = mergesort(array[m:], depth + 1)
 
-    merged = merge(left, right)
-    debug_print(debug_msg=indent + "Merging...", left=left, right=right, merged=merged)
-    return merged
+    left = mergesort(array[:m])
+    right = mergesort(array[m:])
+
+    return merge(left, right)
 
 def merge(left, right):
-    debug_print(debug_msg="Merging...", left=left, right=right)
     merged = []
     while len(left) > 0 and len(right) > 0:
         if left[0] <= right[0]:
@@ -29,14 +24,16 @@ def merge(left, right):
         else:
             merged.append(right.pop(0))
 
-    merged += left if len(left) > 0 else right
-    debug_print(debug_msg="merged:", merged=merged)
+    if len(left) > 0:
+        merged.extend(left)
+    else: 
+        merged  += right
+
     return merged
 
 if __name__ == "__main__":
     input_str = input("Enter numbers, separated by ',': ")
     input_list = input_str.split(",")
-    print("input_list:", input_list)  # Print initial input list
 
     value_list = []
     for x in input_list:
@@ -45,8 +42,6 @@ if __name__ == "__main__":
         except ValueError as err:
             print("Invalid input.")
             quit(1)
-
-    print("value_list:", value_list)  # Print value list after conversion to integers
 
     sorted_list = mergesort(value_list)
     print(sorted_list)  # Print final sorted list
