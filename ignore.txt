@@ -1,2 +1,1 @@
-jpnbz.in
-mwavo.out
+.in, .out ja .pyc
